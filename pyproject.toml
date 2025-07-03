@@ -1,6 +1,6 @@
 [project]
 name = "zoho-crm-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "Model Context Protocol server for Zoho CRM integration"
 authors = [{name = "Your Name", email = "your.email@example.com"}]
 readme = "README.md"

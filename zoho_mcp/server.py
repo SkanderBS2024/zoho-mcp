@@ -162,12 +162,11 @@ def check_authentication():
         
     except ValueError as e:
         print(f"❌ Configuration Error: {e}", file=sys.stderr)
-        print("\nPlease create a .env file with your Zoho app credentials:", file=sys.stderr)
+        print("\nPlease create a .env file with your Zoho app credentials or export them as global environnement variables:", file=sys.stderr)
         print("ZOHO_CLIENT_ID=your_client_id_here", file=sys.stderr)
         print("ZOHO_CLIENT_SECRET=your_client_secret_here", file=sys.stderr)
         print("ZOHO_ACCESS_TOKEN=your_access_token_here", file=sys.stderr)
         print("ZOHO_REFRESH_TOKEN=your_refresh_token_here", file=sys.stderr)
-        print("\nYou can copy .env.example to .env and fill in your values.", file=sys.stderr)
         print("\nFor help generating tokens, run: uv run zoho-mcp-auth", file=sys.stderr)
         sys.exit(1)
     except Exception as e:

@@ -128,10 +128,9 @@ def setup_oauth():
         auth = ZohoAuth()
     except ValueError as e:
         print(f"❌ Configuration Error: {e}")
-        print("\nPlease create a .env file with your Zoho app credentials:")
+        print("\nPlease create a .env file with your Zoho app credentials or export then as global environnement variables:")
         print("ZOHO_CLIENT_ID=your_client_id_here")
         print("ZOHO_CLIENT_SECRET=your_client_secret_here")
-        print("\nYou can copy .env.example to .env and fill in your values.")
         return
     
     print("🔐 Zoho CRM Manual Token Generation")
