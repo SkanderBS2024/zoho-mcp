@@ -83,11 +83,14 @@ Before running the MCP server, you need to generate authentication tokens manual
 Run the authentication helper to generate your tokens:
 
 ```bash
-# Using uv (recommended)
-uv run zoho-mcp-auth
+# Using uvx (recommended)
+uvx --from zoho-crm-mcp zoho-mcp-auth
 
-# Or if installed via pip
+# Or if installed locally via pip
 zoho-mcp-auth
+
+# Or using uv from source
+uv run zoho-mcp-auth
 ```
 
 This will guide you through the OAuth flow:
@@ -136,11 +139,14 @@ ZOHO_REFRESH_TOKEN=your_generated_refresh_token_here
 Once your tokens are configured, you can run the server:
 
 ```bash
-# Using uv (recommended)
-uv run zoho-mcp
+# Using uvx (recommended)
+uvx --from zoho-crm-mcp zoho-mcp
 
-# Or if installed via pip
+# Or if installed locally via pip
 zoho-mcp
+
+# Or using uv from source
+uv run zoho-mcp
 ```
 
 The server will validate your authentication and start:
@@ -236,8 +242,16 @@ Add this server to your Claude Desktop configuration:
   "mcpServers": {
     "zoho-crm": {
       "command": "uvx",
-      "args": ["zoho-crm-mcp"],
-      "env": {}
+      "args": ["--from", "zoho-crm-mcp", "zoho-mcp"],
+      "env": {
+        "ZOHO_CLIENT_ID": "your_zoho_client_id",
+        "ZOHO_CLIENT_SECRET": "your_zoho_client_secret",
+        "ZOHO_REDIRECT_URI": "http://localhost:8080/callback",
+        "ZOHO_API_DOMAIN": "https://www.zohoapis.com",
+        "ZOHO_SCOPE": "ZohoCRM.modules.ALL,ZohoCRM.users.ALL,ZohoCRM.org.ALL",
+        "ZOHO_ACCESS_TOKEN": "your_generated_access_token",
+        "ZOHO_REFRESH_TOKEN": "your_generated_refresh_token"
+      }
     }
   }
 }
@@ -250,7 +264,15 @@ Add this server to your Claude Desktop configuration:
     "zoho-crm": {
       "command": "zoho-mcp",
       "args": [],
-      "env": {}
+      "env": {
+        "ZOHO_CLIENT_ID": "your_zoho_client_id",
+        "ZOHO_CLIENT_SECRET": "your_zoho_client_secret",
+        "ZOHO_REDIRECT_URI": "http://localhost:8080/callback",
+        "ZOHO_API_DOMAIN": "https://www.zohoapis.com",
+        "ZOHO_SCOPE": "ZohoCRM.modules.ALL,ZohoCRM.users.ALL,ZohoCRM.org.ALL",
+        "ZOHO_ACCESS_TOKEN": "your_generated_access_token",
+        "ZOHO_REFRESH_TOKEN": "your_generated_refresh_token"
+      }
     }
   }
 }
@@ -260,19 +282,11 @@ Add this server to your Claude Desktop configuration:
 
 For other MCP-compatible clients, configure them to run:
 ```bash
-# If installed via PyPI
+# Using uvx (recommended)
+uvx --from zoho-crm-mcp zoho-mcp
+
+# Or if installed locally via pip
 zoho-mcp
-
-# Or using uvx
-uvx zoho-crm-mcp
-```
-
-### Command Line Testing
-
-You can test the server directly using JSON-RPC over STDIO:
-
-```bash
-echo '{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "get_user_info_tool", "arguments": {}}}' | zoho-mcp
 ```
 
 ## Error Handling
